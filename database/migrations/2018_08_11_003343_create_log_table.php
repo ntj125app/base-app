@@ -6,36 +6,33 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        if (Schema::connection(config('logtodb.connection'))->hasTable(config('logtodb.collection')) === false) {
-            Schema::connection(config('logtodb.connection'))->create(config('logtodb.collection'), function (Blueprint $table) {
-                $table->increments('id');
-                $table->text('message')->nullable();
-                $table->string('channel')->nullable();
-                $table->integer('level')->default(0);
-                $table->string('level_name', 20);
-                $table->integer('unix_time');
-                $table->string('datetime')->nullable();
-                $table->longText('context')->nullable();
-                $table->text('extra')->nullable();
-                $table->timestamps();
-            });
-        }
-    }
+  /**
+   * Run the migrations.
+   *
+   * @return void
+   */
+  public function up()
+  {
+    Schema::create('log', function (Blueprint $table) {
+      $table->uuid('id')->primary();
+      $table->text('message');
+      $table->string('channel');
+      $table->unsignedSmallInteger('level')->default(0);
+      $table->string('level_name', 20);
+      $table->string('datetime');
+      $table->json('context');
+      $table->json('extra');
+      $table->timestamps();
+    });
+  }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::connection(config('logtodb.connection'))->dropIfExists(config('logtodb.collection'));
-    }
+  /**
+   * Reverse the migrations.
+   *
+   * @return void
+   */
+  public function down()
+  {
+    Schema::dropIfExists('log');
+  }
 };

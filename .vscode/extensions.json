@@ -1,0 +1,25 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "mikestead.dotenv",
+    "xabikos.javascriptsnippets",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode.remote-explorer",
+    "wayou.vscode-todo-highlight",
+    "vscode-icons-team.vscode-icons",
+    "ms-azuretools.vscode-docker",
+    "dmitrydorofeev.empty-indent",
+    "dbaeumer.vscode-eslint",
+    "waderyan.gitblame",
+    "mhutchie.git-graph",
+    "github.copilot",
+    "oderwat.indent-rainbow",
+    "ephoton.indent-switcher",
+    "ionic.ionic",
+    "amiralizadeh9480.laravel-extra-intellisense",
+    "christian-kohler.path-intellisense",
+    "bmewburn.vscode-intelephense-client",
+    "bradlc.vscode-tailwindcss",
+    "vue.volar"
+  ]
+}

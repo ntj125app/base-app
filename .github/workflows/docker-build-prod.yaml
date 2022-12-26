@@ -1,0 +1,125 @@
+name: Build App Container Image for Production
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io # GitHub Container Registry
+  IMAGE_NAME: ${{ github.repository }} # github.repository as <account>/<repo>
+
+jobs:
+  build-app: # Steps to build production application
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      composer-cache: ${{ steps.composer-cache-dir.outputs.dir }}
+      npm-cache: ${{ steps.npm-cache-dir.outputs.dir }}
+    
+    steps:
+      - name: Checkout # Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Create .env file # Create .env file
+        run: echo "${{ secrets.ENV_BASE64 }}" | base64 -d > .env
+
+      # Composer Cache
+      - name: Get Composer Cache Directory
+        id: composer-cache-dir
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+      - name: Composer Cache
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      
+      - name: Vendor Cache # Cache vendor directory
+        id: vendor-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}
+      - name: Composer Install # Install composer dependencies
+        if: steps.vendor-cache.outputs.cache-hit != 'true'
+        run: composer install --optimize-autoloader --no-dev --ignore-platform-reqs
+
+      # NPM Cache
+      - name: Set NodeJS Version # Set NodeJS Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: |
+          echo "dir=$(npm config get cache)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: NPM Build Cache # NPM Build Cache
+        id: npm-build-cache
+        uses: actions/cache@v3
+        with:
+          path: public/build
+          key: ${{ runner.os }}-build-${{ github.sha }}-${{ hashFiles('**/.env') }}
+
+      - name: NPM CI Install # Install NPM dependencies (node_modules folder is not cached)
+        run: npm ci
+        if: steps.npm-build-cache.outputs.cache-hit != 'true'
+      - name: NPM Build # Build NPM assets
+        if: steps.npm-build-cache.outputs.cache-hit != 'true'
+        run: npm run build
+
+      - name: Build Cache # Build Cache
+        run: |
+          sudo mkdir -p /var/www/vhosts/localhost
+          sudo cp -a {.,}[!.]* /var/www/vhosts/localhost
+          sudo chmod -R 777 /var/www/vhosts/localhost
+          cd /var/www/vhosts/localhost
+          php artisan config:cache
+          rm -rf $GITHUB_WORKSPACE/bootstrap/cache/config.php
+          mv /var/www/vhosts/localhost/bootstrap/cache/config.php $GITHUB_WORKSPACE/bootstrap/cache/config.php
+          sudo rm -rf /var/www/vhosts/localhost
+          cd $GITHUB_WORKSPACE
+          php artisan event:cache
+          php artisan route:cache
+
+      - name: Setup QEMU # Setup QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Setup Docker Buildx # Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GitHub Container Registry # Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get & Set Container Metadata # Get & Set Container Metadata
+        id: meta-packages
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - name: Clean Build App # Remove unused files & dirs
+        run: rm -rf node_modules public/debug.php resources/css resources/fonts resources/images resources/js resources/vue stubs tests .editorconfig .env.example .git .gitattributes .gitignore .styleci.yml axiom-sublime.sublime-project axiom-sublime.sublime-workspace cloudbuild.yaml composer.json composer.lock package-lock.json package.json phpunit.xml PROJECT.md README.md server.php tailwind.config.js webpack.mix.js tsconfig.json tsconfig.node.json vite.config.ts postcss.config.js .vscode LOGLEVEL.md .github
+      - name: Build & Push Container # Build & Push Container
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta-packages.outputs.tags }}-staging
+          labels: ${{ steps.meta-packages.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

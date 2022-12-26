@@ -1,0 +1,14 @@
+/** Load Tailwind CSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/** Load custom CSS */
+@import './base';
+@import './primevue';
+@import './fontawesome';
+@import './comp';
+@import './util';
+
+/** X-Cloak must be at the end of all CSS */
+@import './xcloak';

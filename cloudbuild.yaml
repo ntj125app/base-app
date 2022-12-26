@@ -1,0 +1,102 @@
+steps:
+  - name: 'alpine'
+    args: ['/bin/sh', '-c', 'cp -a /workspace /var/www/vhosts/localhost']
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'alpine'
+    args: ['/bin/sh', '-c', 'echo "${_ENV_BASE64}" > env_encoded | base64 -d env_encoded > .env && rm env_encoded']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+
+  - name: 'composer'
+    args: ['composer', 'install', '--optimize-autoloader', '--no-dev', '--ignore-platform-reqs']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'composer'
+    args: ['php', 'artisan', 'config:cache']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'composer'
+    args: ['php', 'artisan', 'event:cache']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'composer'
+    args: ['php', 'artisan', 'route:cache']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'composer'
+    args: ['php', 'artisan', 'view:cache']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+    
+  - name: 'node:alpine'
+    args: ['npm', 'ci']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+  - name: 'node:alpine'
+    args: ['npm', 'run', 'build']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+
+  - name: 'alpine'
+    args: ['rm', '-rf',
+      'node_modules',
+      'public/debug.php',
+      'resources/css',
+      'resources/fonts',
+      'resources/images',
+      'resources/js',
+      'resources/ts',
+      'resources/types',
+      'resources/vue',
+      'stubs',
+      'tests',
+      '.editorconfig',
+      '.env.example',
+      '.git',
+      '.gitattributes',
+      '.gitignore',
+      '.styleci.yml',
+      'axiom-sublime.sublime-project',
+      'axiom-sublime.sublime-workspace',
+      'cloudbuild.yaml',
+      'composer.lock',
+      'package-lock.json',
+      'package.json',
+      'phpunit.xml',
+      'PROJECT.md',
+      'README.md',
+      'server.php',
+      'tailwind.config.js',
+      'webpack.mix.js',
+    ]
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_DOCKER_REPO_NAME}:${_DOCKER_REPO_TAG}', '.']
+    dir: '/var/www/vhosts/localhost'
+    volumes:
+    - name: 'vol1'
+      path: '/var/www/vhosts'
+
+images: ['${_DOCKER_REPO_NAME}:${_DOCKER_REPO_TAG}']

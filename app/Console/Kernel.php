@@ -7,33 +7,46 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    /**
-     * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        /** Packages Cron */
-        $schedule->command('horizon:snapshot')->everyFiveMinutes();
-        $schedule->command('storage:link')->everyFiveMinutes();
-        $schedule->command('log:delete')->hourly();
-        $schedule->command('queue:prune-failed')->daily();
-        $schedule->command('queue:flush')->daily();
-        $schedule->command('model:prune')->daily();
-        $schedule->command('sanctum:prune-expired --hours=24')->daily();
-    }
+  /**
+   * Get the timezone that should be used by default for scheduled events.
+   * Don't use timezone for DST time, use UTC instead
+   *
+   * @return \DateTimeZone|string|null
+   */
+  protected function scheduleTimezone()
+  {
+    return 'Asia/Jakarta';
+  }
 
-    /**
-     * Register the commands for the application.
-     *
-     * @return void
-     */
-    protected function commands()
-    {
-        $this->load(__DIR__.'/Commands');
+  /**
+   * Define the application's command schedule.
+   *
+   * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+   * @return void
+   */
+  protected function schedule(Schedule $schedule)
+  {
+    /** Packages Cron */
+    $schedule->command('horizon:snapshot')->everyFiveMinutes()->runInBackground()->withoutOverlapping();
+    $schedule->command('storage:link')->everyFiveMinutes()->runInBackground()->withoutOverlapping();
+    $schedule->command('model:prune')->hourly()->runInBackground()->withoutOverlapping();
+    $schedule->command('sanctum:prune-expired --hours=0')->hourly()->runInBackground()->withoutOverlapping();
+    $schedule->command('queue:prune-failed')->daily()->runInBackground()->withoutOverlapping();
+    $schedule->command('queue:flush')->daily()->runInBackground()->withoutOverlapping();
 
-        require base_path('routes/console.php');
-    }
+    /** Custom Jobs Cron */
+    $schedule->job(new \App\Jobs\PruneLogDebugLevelJob)->dailyAt('00:00');
+  }
+
+  /**
+   * Register the commands for the application.
+   *
+   * @return void
+   */
+  protected function commands()
+  {
+    $this->load(__DIR__.'/Commands');
+
+    require base_path('routes/console.php');
+  }
 }

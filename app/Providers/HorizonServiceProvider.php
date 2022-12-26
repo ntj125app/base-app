@@ -9,29 +9,29 @@ use App\Models\User;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
+  /**
+   * Bootstrap any application services.
+   *
+   * @return void
+   */
+  public function boot()
+  {
+    parent::boot();
 
-        Horizon::night();
-    }
+    Horizon::night();
+  }
 
-    /**
-     * Register the Horizon gate.
-     *
-     * This gate determines who can access Horizon in non-local environments.
-     *
-     * @return void
-     */
-    protected function gate()
-    {
-        Gate::define('viewHorizon', function ($user) {
-          return $user->hasPermissionTo(User::SUPER);
-        });
-    }
+  /**
+   * Register the Horizon gate.
+   *
+   * This gate determines who can access Horizon in non-local environments.
+   *
+   * @return void
+   */
+  protected function gate()
+  {
+    Gate::define('viewHorizon', function ($user) {
+      return (config('app.debug') === true) ? true : $user->hasPermissionTo(User::SUPER);
+    });
+  }
 }

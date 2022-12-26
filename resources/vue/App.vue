@@ -1,20 +1,32 @@
-<script>
-  import CmpAppSet from './CmpAppSet.vue'
-  import PgServerLog from './PgServerLog.vue'
+<script lang="ts">
+  import { defineComponent } from 'vue'
+  import axios from 'axios'
+  import CmpAppSet from './Components/CmpAppSet.vue'
 
-  export default {
-    components: {
-      CmpAppSet,
-      PgServerLog,
-    },
+  import PgLogin from './AuthPages/PgLogin.vue'
+  import PgDashboard from './DashboardPages/PgDashboard.vue'
+  import PgProfile from './DashboardPages/PgProfile.vue'
+  import PgUserMan from './SuperPages/PgUserMan.vue'
+  import PgServerLog from './SuperPages/PgServerLog.vue'
 
-    setup() {
-      /**
-       * Get new CSRF Token set everytime app is created
-       */
-      axios.get('/sanctum/csrf-cookie').then(() => {
-        console.log('csrf cookie init')
-      })
-    },
-  }
+  export default defineComponent({
+  name: 'App',
+  components: {
+    CmpAppSet,
+    PgLogin,
+    PgDashboard,
+    PgProfile,
+    PgUserMan,
+    PgServerLog,
+  },
+
+  setup() {
+    /**
+     * Get new CSRF Token set everytime app is created
+     */
+    axios.get('/sanctum/csrf-cookie').then(() => {
+    console.log('csrf cookie init')
+    })
+  },
+  })
 </script>

@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "strict": true,
-    "allowJs": true,
-    "typeRoots" : ["./node_modules/@types", "./resources/types"],
     "jsx": "preserve",
-    "watchDirectory": "useFsEvents",
-    "watchFile": "useFsEvents",
-    "useFsEvents": true,
-    "usePolling": false
-  }
+    "importHelpers": true,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "types": ["vite/client"],
+    "useDefineForClassFields": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "lib": ["ESNext", "DOM"]
+  },
+  "include": ["resources/**/*.ts", "resources/**/*.d.ts", "resources/**/*.tsx", "resources/**/*.vue"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "exclude": ["node_modules"]
 }

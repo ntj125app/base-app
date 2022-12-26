@@ -1,0 +1,19 @@
+.echo-connect-loading {
+  @apply text-yellow-500 text-sm;
+}
+
+.echo-connect-connected {
+  @apply text-green-500 text-sm;
+}
+
+.echo-connect-failed {
+  @apply text-red-500 text-sm;
+}
+
+.bg-picture {
+  @apply bg-slate-200;
+  @apply object-fill;
+  @apply bg-no-repeat;
+  @apply bg-cover;
+  @apply bg-center;
+}

@@ -1,10 +1,10 @@
 /**
- * Let's import CSS from TS/JS
+ * Let's import CSS from TS/JS this need file extension
  */
-import '../css/app.css'
+import '../css/app.scss';
 
 /**
  * Let's load our application
  */
 import './bootstrap'
-import './vue-app'
+import '../vue/AppVue'

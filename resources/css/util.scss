@@ -1,0 +1,32 @@
+.scale-10 {
+  transform: scale(.1);
+}
+
+.scale-20 {
+  transform: scale(.2);
+}
+
+.scale-30 {
+  transform: scale(.3);
+}
+
+.scale-40 {
+  transform: scale(.4);
+}
+
+.tracking-otp {
+  letter-spacing: 0.4em;
+}
+
+.top-screen {
+  top: 100vh;
+}
+
+.h-video {
+  height: 25vh;
+}
+
+.vertical-text {
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+}

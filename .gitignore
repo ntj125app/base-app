@@ -1,16 +1,48 @@
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
+/vendor/
+node_modules/
 npm-debug.log
 yarn-error.log
+/html/
+/.fleet
 /.idea
-/.vscode
+
+# Laravel 4 specific
+bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+public/storage
+public/hot
+
+# Laravel 5 & Lumen specific with changed public path
+public_html/storage
+public_html/hot
+
+storage/*.key
+.env
+.env.backup
+.env.production
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+
+# Ignore Laravel Mix output
+public/mix-js
+public/mix-css
+public/mix-manifest.json
+public/debug.php
+public/build
+env-production
+env-dev
+base64_env
+base64_env_dev
+auth.json
+
+# Ignore Debugs Files
+public/*-debug.php
+
+# Ignore PrimeVue Files
+public/images
+
+# Added blankspace for Git
