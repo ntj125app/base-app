@@ -6,7 +6,7 @@
   import CmpLayout from '../Components/CmpLayout.vue'
 
   import { timeGreetings, timeView } from '../AppCommon'
-  
+
   import Button from 'primevue/button'
   import DataTable from 'primevue/datatable'
   import Column from 'primevue/column'
@@ -31,7 +31,7 @@
     Row,
     InputText,
   },
-  
+
   data() {
     return {
     loadingstat: true,
@@ -99,7 +99,7 @@
       </div>
     </template>
     <template #empty>
-      No data found.
+      <div class="flex justify-center">No data found</div>
     </template>
     <template #loading>
       <i class="pi pi-spin pi-spinner mr-2.5"></i> Loading data. Please wait.
