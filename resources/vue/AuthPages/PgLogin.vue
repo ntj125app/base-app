@@ -75,7 +75,7 @@
       <div class="flex justify-center flex-col mt-8 my-2.5 p-float-label">
       <div class="w-full">
         <span class="p-float-label w-full">
-        <Password type="text" id="password" class="w-full" input-class="text-center" v-model="password" :feedback="false" @keyup.enter="postLogindata" />
+        <Password type="text" id="password" class="w-full" inputClass="text-center" v-model="password" :feedback="false" @keyup.enter="postLogindata" />
         <label class="w-full" for="password">Password</label>
         </span>
       </div>

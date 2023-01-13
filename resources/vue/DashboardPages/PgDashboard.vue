@@ -17,7 +17,7 @@
   components: {
     CmpLayout,
   },
-  
+
   data() {
     return {
     clock: new Date().toLocaleString("en-UK"),

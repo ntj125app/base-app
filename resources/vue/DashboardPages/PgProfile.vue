@@ -23,7 +23,7 @@
     InputText,
     Button,
   },
-  
+
   data() {
     return {
     name: this.userName,
@@ -36,7 +36,7 @@
     axios.post(main.postProfile, {
       name: this.name,
     }).then(response => {
-      useResponse(response)    
+      useResponse(response)
     }).catch(error => {
       useError(error)
     })

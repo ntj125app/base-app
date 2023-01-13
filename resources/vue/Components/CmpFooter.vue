@@ -3,7 +3,7 @@
   import axios from 'axios'
   import { useResponse, useError } from '../AppAxiosResp'
   import { useMainStore } from '../AppState'
-  
+
   export default defineComponent({
   name: 'CmpFooter',
   data() {

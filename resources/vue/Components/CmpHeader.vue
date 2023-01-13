@@ -6,7 +6,7 @@
 
   import Button from 'primevue/button'
   import TieredMenu from 'primevue/tieredmenu'
-  
+
   const win: Window = window; // Window location workaround
 
   export default defineComponent({
@@ -15,13 +15,13 @@
     Button,
     TieredMenu,
   },
-  
+
   data() {
     let main = useMainStore()
     return {
     echoEnable: true,
     pusherState: window.Echo.connector.pusher.connection.state,
-    
+
     standardMenuItems: [
       /** Standard Responsibility */
       {
@@ -86,11 +86,11 @@
 
   computed: {
     showMenu(): any {
-    let main = useMainStore()    
+    let main = useMainStore()
     let menu = this.standardMenuItems
 
     /** Use Concat not push because we create new array / merge 2 array, not pushing object of array into existing array */
-    
+
     if (main.permissionsData?.includes('root')) {
       menu = menu.concat(this.rootMenuItems as any)
     }

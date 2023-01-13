@@ -9,7 +9,7 @@
   props: {
     captchaSiteKey: null,
   },
-  
+
   data() {
     return {
     widgetId: null,
