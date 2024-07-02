@@ -44,7 +44,7 @@
         "@types/lodash": "^4.17.6",
         "@types/mocha": "^10.0.7",
         "@typescript-eslint/eslint-plugin": "^7.14.1",
-        "@typescript-eslint/parser": "^7.14.1",
+        "@typescript-eslint/parser": "^7.15.0",
         "@vue/eslint-config-typescript": "^13.0.0",
         "@vue/test-utils": "^2.4.6",
         "browserslist-useragent-regexp": "^4.1.3",
