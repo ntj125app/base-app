@@ -16,7 +16,7 @@
         "laravel/passport": "^12.0",
         "laravel/pennant": "^1.7",
         "laravel/pulse": "^1.2",
-        "laravel/reverb": "v1.0.0",
+        "laravel/reverb": "v1.1.0",
         "laravel/tinker": "^2.9",
         "openswoole/core": "^22.1",
         "pusher/pusher-php-server": "^7.2",
