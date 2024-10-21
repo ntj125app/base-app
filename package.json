@@ -42,7 +42,7 @@
         "@tsconfig/recommended": "^1.0.7",
         "@types/chai": "^5.0.0",
         "@types/jest": "^29.5.13",
-        "@types/lodash": "^4.17.10",
+        "@types/lodash": "^4.17.12",
         "@types/mocha": "^10.0.9",
         "@vue/test-utils": "^2.4.6",
         "browserslist-useragent-regexp": "^4.1.3",
