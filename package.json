@@ -13,7 +13,7 @@
     },
     "dependencies": {
         "@primevue/core": "^4.2.5",
-        "@sentry/vue": "^8.44.0",
+        "@sentry/vue": "^8.47.0",
         "@vitejs/plugin-vue": "^5.2.1",
         "autoprefixer": "^10.4.20",
         "axios": "^1.7.9",
