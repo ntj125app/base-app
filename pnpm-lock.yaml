@@ -24,8 +24,8 @@ importers:
         specifier: ^4.1.4
         version: 4.1.4(vite@6.2.6(@types/node@22.10.1)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.36.0)(yaml@2.7.0))
       '@unhead/vue':
-        specifier: ^2.0.5
-        version: 2.0.5(vue@3.5.13(typescript@5.8.3))
+        specifier: ^2.0.8
+        version: 2.0.8(vue@3.5.13(typescript@5.8.3))
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
         version: 5.2.3(vite@6.2.6(@types/node@22.10.1)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.36.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.3))
@@ -913,8 +913,8 @@ packages:
     resolution: {integrity: sha512-aEhgas7aJ6vZnNFC7K4/vMGDGyOiqWcYZPpIWrTKuTAlsvDNKy2GFDqh9smL+iq069ZvR0YzEeq0B8NJlLzjFA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@unhead/vue@2.0.5':
-    resolution: {integrity: sha512-csjNmBHvJGzSestlpApOpgxqaTdXSN2zwNIPFuWB+C4rtLX4x3+Tm7C5rQwU0iYy3CNJGjJT9cCcSyV55Jg4EQ==}
+  '@unhead/vue@2.0.8':
+    resolution: {integrity: sha512-e30+CfCl1avR+hzFtpvnBSesZ5TN2KbShStdT2Z+zs5WIBUvobQwVxSR0arX43To6KfwtCXAfi0iOOIH0kufHQ==}
     peerDependencies:
       vue: '>=3.5.13'
 
@@ -2339,8 +2339,8 @@ packages:
   undici-types@6.20.0:
     resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
 
-  unhead@2.0.5:
-    resolution: {integrity: sha512-bG4wyp+KuW+ivQYtTQvnvtMM55ziIrQ9Yq1/VAm099buBgH0CoBWgu39jkSUoE4oZ4Qki8SsnMbq2gL0h3/sUA==}
+  unhead@2.0.8:
+    resolution: {integrity: sha512-63WR+y08RZE7ChiFdgNY64haAkhCtUS5/HM7xo4Q83NA63txWbEh2WGmrKbArdQmSct+XlqbFN8ZL1yWpQEHEA==}
 
   unicode-properties@1.4.1:
     resolution: {integrity: sha512-CLjCCLQ6UuMxWnbIylkisbRj31qxHPAurvena/0iwSVbQ2G1VY5/HjV0IRabOEbDHlzZlRdCrD4NhB0JtU40Pg==}
@@ -3002,7 +3002,7 @@ snapshots:
       '@tailwindcss/postcss': 4.1.4
       '@tailwindcss/vite': 4.1.4(vite@6.2.6(@types/node@22.10.1)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.36.0)(yaml@2.7.0))
       '@tanstack/vue-table': 8.21.3(vue@3.5.13(typescript@5.8.3))
-      '@unhead/vue': 2.0.5(vue@3.5.13(typescript@5.8.3))
+      '@unhead/vue': 2.0.8(vue@3.5.13(typescript@5.8.3))
       '@vueuse/core': 13.1.0(vue@3.5.13(typescript@5.8.3))
       '@vueuse/integrations': 13.1.0(axios@1.8.4)(fuse.js@7.1.0)(vue@3.5.13(typescript@5.8.3))
       colortranslator: 4.1.0
@@ -3457,10 +3457,10 @@ snapshots:
       '@typescript-eslint/types': 8.30.1
       eslint-visitor-keys: 4.2.0
 
-  '@unhead/vue@2.0.5(vue@3.5.13(typescript@5.8.3))':
+  '@unhead/vue@2.0.8(vue@3.5.13(typescript@5.8.3))':
     dependencies:
       hookable: 5.5.3
-      unhead: 2.0.5
+      unhead: 2.0.8
       vue: 3.5.13(typescript@5.8.3)
 
   '@vitejs/plugin-vue@5.2.3(vite@6.2.6(@types/node@22.10.1)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.3)(terser@5.36.0)(yaml@2.7.0))(vue@3.5.13(typescript@5.8.3))':
@@ -4898,7 +4898,7 @@ snapshots:
   undici-types@6.20.0:
     optional: true
 
-  unhead@2.0.5:
+  unhead@2.0.8:
     dependencies:
       hookable: 5.5.3
 
